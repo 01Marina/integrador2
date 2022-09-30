@@ -4,17 +4,25 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Matricula {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idMatricula;
 	@Column
 	private String carrera;
 	@Column
 	private Date fechaIngreso;
 	@Column
 	private Boolean graduado;
-	@OneToMany
+	@OneToOne
 	private Estudiante estudiante;
 	
 	public Matricula() {
@@ -32,7 +40,7 @@ public class Matricula {
 	@Override
 	public String toString() {
 		return "Matricula [carrera=" + carrera + ", fechaIngreso=" + fechaIngreso + ", graduado=" + graduado
-				+ ", estudiante=" + estudiante + "]";
+				+"]";
 	}
 	
 	
