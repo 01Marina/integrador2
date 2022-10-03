@@ -2,6 +2,7 @@ package entidades;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Matricula {
 	private Date fechaIngreso;
 	@Column
 	private Boolean graduado;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Estudiante estudiante;
 	
 	public Matricula() {

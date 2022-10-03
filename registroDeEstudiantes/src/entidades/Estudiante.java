@@ -3,6 +3,7 @@ package entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,7 @@ public class Estudiante {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idEstuduante;
+	private int idEstudiante;
 	@Column(nullable=false)
 	private String nombre;
 	@Column(name="anios")
@@ -29,7 +30,7 @@ public class Estudiante {
 	private String ciudadDeResidencia;
 	@Column
 	private int libretaUniversitaria;
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante", cascade=CascadeType.ALL)
 	private List<Matricula> matriculas;
 	
 	public Estudiante() {
@@ -55,7 +56,7 @@ public class Estudiante {
 
 	@Override
 	public String toString() {
-		return "Estudiante [idEstuduante=" + idEstuduante + ", nombre=" + nombre + ", edad=" + edad + ", genero="
+		return "Estudiante [idEstuduante=" + idEstudiante + ", nombre=" + nombre + ", edad=" + edad + ", genero="
 				+ genero + ", dni=" + dni + ", ciudadDeResidencia=" + ciudadDeResidencia + ", libretaUniversitaria="
 				+ libretaUniversitaria + ", matriculas=" + devolverMatriculas() + "]";
 	}

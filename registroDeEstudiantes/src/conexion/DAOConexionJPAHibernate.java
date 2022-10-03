@@ -17,7 +17,7 @@ public class DAOConexionJPAHibernate{
 	private static EntityManager em = null;
 	
 	private DAOConexionJPAHibernate() {
-		emf = Persistence.createEntityManagerFactory("Example");
+		emf = Persistence.createEntityManagerFactory("registroEstudiantes");
 		em = emf.createEntityManager();
 	}
 
@@ -26,7 +26,7 @@ public class DAOConexionJPAHibernate{
 	}
 	
 	public static synchronized DAOConexionJPAHibernate crearConexion2() {
-		if(instancia == null || !emf.isOpen()) {
+		if(instancia == null || !emf.isOpen()) {//is.open para verificar si se le hizo .close
 			instancia = new DAOConexionJPAHibernate();
 		}
 		return instancia;
