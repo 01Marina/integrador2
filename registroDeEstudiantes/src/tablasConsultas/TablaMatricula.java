@@ -1,24 +1,24 @@
 package tablasConsultas;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
 
 import conexion.DAOConexionJPAHibernate;
+import entidades.Carrera;
 import entidades.Estudiante;
 import entidades.Matricula;
 
 
 
 public class TablaMatricula {
-//	final String INSERT = "INSERT INTO persona (id, nombre, edad) VALUES(?, ?, ?)";
-//	final String UPDATE = "UPDATE persona SET nombre=?, edad=? WHERE id=?";
+	final String INSERT = "INSERT INTO matricula (idMatricula, fechaIngreso, graduado, idEstudiante, idCarrera) VALUES(?1,?2,?3,?4,?5)";
 //	final String DELETE = "DELETE FROM persona WHERE id=?";
 //	final String SELECTALL = "SELECT m FROM Persona p";
 	
-//	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT m.carrera, count(*) AS cantidadAlumnos FROM Matricula m GROUP BY carrera ORDER BY count(*)";
+	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT m.carrera, count(*) AS cantidadAlumnos FROM Matricula m GROUP BY carrera ORDER BY count(*)";
 //	SELECT m FROM Matricula group by carrera order by count(*)
 
 	//	String sql = "SELECT p.anios FROM persona p";
@@ -28,48 +28,28 @@ public class TablaMatricula {
 	
 	public TablaMatricula() {}
 
+//	2b
+	public void matricularEstudiante(Estudiante e, Carrera c) {
+		LocalDate fecha =  LocalDate.now();
+		Matricula m = new Matricula(c, Timestamp.valueOf(fecha.toString()), false, e);
+		conexion.crearConexion();
+		EntityManager em = conexion.getEm();
+		
+		em.createQuery(INSERT)
+			.setParameter(1, m.getIdMatricula())
+			.setParameter(2, m.getFechaIngreso())
+			.setParameter(3, m.getGraduado())
+			.setParameter(4, m.getEstudiante())
+			.setParameter(5, m.getCarrera())
+			.executeUpdate();
+		
+		conexion.cerrarConexion();
+		
+	}
+	
 
-	public void insertar(Matricula m) {
-		conexion.crearConexion();
-		EntityManager em = conexion.getEm();
-		
-		em.persist(m);
-		
-//		em.createQuery(INSERT)
-//			.setParameter(1, p.getId())
-//			.setParameter(2, p.getNombre())
-//			.setParameter(3, p.getEdad())
-//			.executeUpdate();
-		
-		conexion.cerrarConexion();
-		
-	}
 	
-	//2f
-	
-	public List<Matricula> getCarrerasOrdenCantAlumnos() {
-		conexion.crearConexion();
-		EntityManager em = conexion.getEm();
-		
-		List<Matricula> carreras = em.createQuery(SELECTCARRERAS_ORDEN_CANT_ALUMNOS).getResultList();
-		
-		conexion.cerrarConexion();
-		return carreras;
-		
-	}
-	
-	//2g
-	
-//	public Matricula getCarrerasOrdenCantAlumnos(Matricula m) {
-//		conexion.crearConexion();
-//		EntityManager em = conexion.getEm();
-//		
-//		List<Matricula> carreras = em.createQuery(SELECTCARRERAS_ORDEN_CANT_ALUMNOS).getResultList();
-//		
-//		conexion.cerrarConexion();
-//		return carreras;
-//		
-//	}
+
 	
     
     
