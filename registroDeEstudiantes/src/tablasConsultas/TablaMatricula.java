@@ -18,7 +18,7 @@ public class TablaMatricula {
 //	final String DELETE = "DELETE FROM persona WHERE id=?";
 //	final String SELECTALL = "SELECT m FROM Persona p";
 	
-	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT m.carrera, count(*) AS cantidadAlumnos FROM Matricula m GROUP BY carrera ORDER BY count(*)";
+//	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT m.carrera, count(*) AS cantidadAlumnos FROM Matricula m GROUP BY carrera ORDER BY count(*)";
 //	SELECT m FROM Matricula group by carrera order by count(*)
 
 	//	String sql = "SELECT p.anios FROM persona p";

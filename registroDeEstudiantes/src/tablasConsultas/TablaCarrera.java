@@ -9,12 +9,28 @@ import entidades.Carrera;
 
 public class TablaCarrera {
 	
-	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT c FROM Carrera c JOIN Carrera_Estudiante ce group by carrera ORDER BY count(c)";
+	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT c FROM Carrera c JOIN Matricula m group by carrera ORDER BY count(c)";
 	
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();
 	
 	public TablaCarrera() {}
+	
+	public void insertar(Carrera c) {
+		conexion.crearConexion();
+		EntityManager em = conexion.getEm();
+		
+		
+		em.persist(c);
+		
+//		em.createQuery(INSERT)
+//			.setParameter(1, p.getId())
+//			.setParameter(2, p.getNombre())
+//			.setParameter(3, p.getEdad())
+//			.executeUpdate();
+		
+		conexion.cerrarConexion();
+	}
 	
 	
 	//2f

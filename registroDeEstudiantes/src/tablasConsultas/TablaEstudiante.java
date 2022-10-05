@@ -13,7 +13,7 @@ public class TablaEstudiante {
 	final String SELECTALL_SORTEDBYNAME = "SELECT e FROM Estudiante e ORDER BY nombre ASC";
 	final String GET_ESTUDIANTE = "SELECT e FROM Estudiante e WHERE e.libretaUniversitaria = :numLibreta";
 	final String SELECTALL_GENRE = "SELECT e FROM Estudiante e WHERE e.genero = :gnr";
-	final String SELECT_ESTUDIANTES_CARRERA_CIUDAD = "SELECT e FROM Estudiante e JOIN Matricula ce WHERE ce.carrera = :carrera AND e.ciudad=:ciudad";
+	final String SELECT_ESTUDIANTES_CARRERA_CIUDAD = "SELECT e FROM Estudiante e JOIN Matricula m WHERE m.carrera = :carrera AND e.ciudad=:ciudad";
 
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();

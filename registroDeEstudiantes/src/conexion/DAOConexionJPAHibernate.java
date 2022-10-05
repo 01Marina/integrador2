@@ -17,7 +17,7 @@ public class DAOConexionJPAHibernate{
 	private static EntityManager em = null;
 	
 	private DAOConexionJPAHibernate() {
-		emf = Persistence.createEntityManagerFactory("registroEstudiantes");
+		emf = Persistence.createEntityManagerFactory("registroestudiantes");
 		em = emf.createEntityManager();
 	}
 

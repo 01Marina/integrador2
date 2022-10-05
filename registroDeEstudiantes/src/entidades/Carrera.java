@@ -14,6 +14,9 @@ public class Carrera {
 	@Column
 	private String nombre;
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante")
+	private List<Matricula> matriculas;
+	
 	public Carrera() {
 		super();
 	}

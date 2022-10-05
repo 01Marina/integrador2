@@ -30,7 +30,7 @@ public class Estudiante {
 	private String ciudadDeResidencia;
 	@Column
 	private int libretaUniversitaria;
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante")
 	private List<Matricula> matriculas;
 	
 	public Estudiante() {
