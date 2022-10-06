@@ -19,18 +19,11 @@ public class DTOServicioCarrera {
 //	
 //	
 	
-	final String SELECT_CARRERAS_ANIO = "SELECT new DTOCarrera(m.carrera.nombre, EXTRACT(YEAR FROM m.fechaIngreso) AS anio) "
-			+ "FROM Matricula m "
-			+ "GROUP BY EXTRACT(YEAR FROM m.fechaIngreso)"
-			+ "ORDER BY m.carrera.nombre DESC, EXTRACT(YEAR FROM m.fechaIngreso) DESC";
+	final String SELECT_CARRERAS_ANIO = "SELECT new DTOReporteCarrera(m.carrera.nombre, m.fechaIngreso) FROM Matricula m GROUP BY m.fechaIngreso ORDER BY m.carrera.nombre DESC, m.fechaIngreso DESC";
 	
-	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS = "SELECT COUNT(m.graduado)"
-			+ "FROM Matricula m WHERE m.nombre = :nombreCarrera AND EXTRACT(YEAR FROM m.fechaIngreso) = :anio AND m.graduado = false"
-			+ "GROUP BY m.carrera.nombre";
+	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS = "SELECT COUNT(m.graduado) FROM Matricula m WHERE m.nombre = :nombreCarrera AND m.anio = :anio AND m.graduado = false GROUP BY m.carrera.nombre";
 	
-	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS = "SELECT COUNT(m.graduado)"
-			+ "FROM Matricula m WHERE m.nombre = :nombreCarrera AND EXTRACT(YEAR FROM m.fechaIngreso) = :anio AND m.graduado = true"
-			+ "GROUP BY m.carrera.nombre";
+	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS = "SELECT COUNT(m.graduado) FROM Matricula m WHERE m.nombre = :nombreCarrera AND m.anio = :anio AND m.graduado = true GROUP BY m.carrera.nombre";
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();
 	

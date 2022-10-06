@@ -30,7 +30,7 @@ public class Estudiante {
 	private String ciudadDeResidencia;
 	@Column
 	private int libretaUniversitaria;
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "estudiante")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy = "estudiante")
 	private List<Matricula> matriculas;
 	
 	public Estudiante() {
@@ -58,17 +58,8 @@ public class Estudiante {
 	public String toString() {
 		return "Estudiante [idEstuduante=" + idEstudiante + ", nombre=" + nombre + ", edad=" + edad + ", genero="
 				+ genero + ", dni=" + dni + ", ciudadDeResidencia=" + ciudadDeResidencia + ", libretaUniversitaria="
-				+ libretaUniversitaria + ", matriculas=" + devolverMatriculas() + "]";
+				+ libretaUniversitaria +"]";
 	}
-	
-	public String devolverMatriculas() {
-		String cadena = " ";
-		for(Matricula m : matriculas) {
-			cadena += m.toString();
-		}
-		return cadena;
-	}
-	
 	
 	
 }

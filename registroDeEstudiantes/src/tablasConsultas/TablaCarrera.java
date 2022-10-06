@@ -9,7 +9,7 @@ import entidades.Carrera;
 
 public class TablaCarrera {
 	
-	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT c FROM Carrera c JOIN Matricula m group by carrera ORDER BY count(c)";
+	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT c FROM Carrera c JOIN c.matriculas group by c.nombre ORDER BY count(c.nombre)";
 	
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();

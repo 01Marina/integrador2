@@ -1,7 +1,6 @@
 package tablasConsultas;
 
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
@@ -14,7 +13,7 @@ import entidades.Matricula;
 
 
 public class TablaMatricula {
-	final String INSERT = "INSERT INTO matricula (idMatricula, fechaIngreso, graduado, idEstudiante, idCarrera) VALUES(?1,?2,?3,?4,?5)";
+	final String INSERT = "INSERT INTO matricula (fechaEgreso, fechaIngreso, idCarrera, idEstudiante) VALUES (:1,:2,:3,:4)";
 //	final String DELETE = "DELETE FROM persona WHERE id=?";
 //	final String SELECTALL = "SELECT m FROM Persona p";
 	
@@ -29,19 +28,21 @@ public class TablaMatricula {
 	public TablaMatricula() {}
 
 //	2b
+	//funcion de insertar
 	public void matricularEstudiante(Estudiante e, Carrera c) {
 		LocalDate fecha =  LocalDate.now();
-		Matricula m = new Matricula(c, Timestamp.valueOf(fecha.toString()), false, e);
+		Matricula m = new Matricula(c, fecha.getYear(), e);//contructor para un estudiante no egresado
 		conexion.crearConexion();
 		EntityManager em = conexion.getEm();
 		
-		em.createQuery(INSERT)
-			.setParameter(1, m.getIdMatricula())
-			.setParameter(2, m.getFechaIngreso())
-			.setParameter(3, m.getGraduado())
-			.setParameter(4, m.getEstudiante())
-			.setParameter(5, m.getCarrera())
-			.executeUpdate();
+		em.persist(m);
+		
+//		em.createQuery(INSERT)
+//			.setParameter("1", m.getFechaEgreso())
+//			.setParameter("2", m.getFechaIngreso())
+//			.setParameter("3", m.getCarrera())
+//			.setParameter("4", m.getEstudiante())
+//			.executeUpdate();
 		
 		conexion.cerrarConexion();
 		

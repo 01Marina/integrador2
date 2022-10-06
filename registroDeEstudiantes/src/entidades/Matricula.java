@@ -1,6 +1,5 @@
 package entidades;
 
-import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,13 +18,16 @@ public class Matricula {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idMatricula;
 	@Column
-	private Timestamp fechaIngreso;
-	@Column
-	private Boolean graduado;
+	private int fechaIngreso;
+	
+	@Column (nullable = true)
+	private Integer fechaEgreso;
+	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="idEstudiante")
 	private Estudiante estudiante;
-	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.LAZY)
+	
+	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinColumn(name="idCarrera")
 	private Carrera carrera;
 	
@@ -33,34 +35,32 @@ public class Matricula {
 		super();
 	}
 
-	public Matricula(Carrera carrera, Timestamp fechaIngreso, Boolean graduado, Estudiante estudiante) {
+	public Matricula(Carrera carrera, int fechaIngreso, Estudiante estudiante) {
 		super();
 		this.carrera = carrera;
 		this.fechaIngreso = fechaIngreso;
-		this.graduado = graduado;
+		this.estudiante = estudiante;
+	}
+	
+	public Matricula(Carrera carrera, int fechaIngreso, int fechaEgreso, Estudiante estudiante) {
+		super();
+		this.carrera = carrera;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaEgreso = fechaEgreso;
 		this.estudiante = estudiante;
 	}
 
 	@Override
 	public String toString() {
-		return "Matricula [carrera=" + carrera + ", fechaIngreso=" + fechaIngreso + ", graduado=" + graduado
-				+"]";
+		return "Matricula [carrera=" + carrera + ", fechaIngreso=" + fechaIngreso +"]";
 	}
 
-	public Timestamp getFechaIngreso() {
+	public int getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(Timestamp fechaIngreso) {
+	public void setFechaIngreso(int fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
-	}
-
-	public Boolean getGraduado() {
-		return graduado;
-	}
-
-	public void setGraduado(Boolean graduado) {
-		this.graduado = graduado;
 	}
 
 	public Estudiante getEstudiante() {
@@ -81,6 +81,14 @@ public class Matricula {
 
 	public int getIdMatricula() {
 		return idMatricula;
+	}
+
+	public Integer getFechaEgreso() {
+		return fechaEgreso;
+	}
+
+	public void setFechaEgreso(Integer fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
 	}
 	
 	
