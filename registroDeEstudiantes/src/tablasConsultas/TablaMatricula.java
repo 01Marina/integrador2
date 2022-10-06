@@ -20,7 +20,7 @@ public class TablaMatricula {
 //	final String SELECTCARRERAS_ORDEN_CANT_ALUMNOS = "SELECT m.carrera, count(*) AS cantidadAlumnos FROM Matricula m GROUP BY carrera ORDER BY count(*)";
 //	SELECT m FROM Matricula group by carrera order by count(*)
 
-	//	String sql = "SELECT p.anios FROM persona p";
+	//	String sql = "SELECT p.anios FROM persona p" ;
 //	final String SELECTID = "SELECT p FROM persona WHERE id=?";
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();
