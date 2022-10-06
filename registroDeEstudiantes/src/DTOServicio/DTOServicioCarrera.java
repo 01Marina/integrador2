@@ -29,9 +29,9 @@ public class DTOServicioCarrera implements Serializable{
 
 	final String SELECT_CARRERAS_ANIO = "SELECT m FROM Matricula m GROUP BY m.fechaIngreso, m.carrera.nombre  ORDER BY m.carrera.nombre DESC, m.fechaIngreso DESC";
 	
-	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS = "SELECT COUNT(m) FROM Matricula m WHERE m.fechaEgreso IS NULL AND m.carrera.nombre = :nombreCarrera AND m.fechaIngreso = :anio ";
+	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS = "SELECT COUNT(m) FROM Matricula m JOIN m.carrera c WHERE m.fechaEgreso IS NULL AND c.nombre = :nombreCarrera AND m.fechaIngreso = :anio";
 	
-	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS = "SELECT COUNT(m.fechaEgreso) FROM Matricula m WHERE m.carrera.nombre = :nombreCarrera AND m.fechaIngreso = :anio AND m.fechaEgreso IS NOT NULL GROUP BY m.carrera.nombre";
+	final String SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS = "SELECT COUNT(m) FROM Matricula m JOIN m.carrera c WHERE m.fechaEgreso IS NOT NULL AND c.nombre = :nombreCarrera AND m.fechaIngreso = :anio";
 	
 	private static final DAOConexionJPAHibernate conexion = DAOConexionJPAHibernate.crearConexion2();
 	
@@ -60,19 +60,22 @@ public class DTOServicioCarrera implements Serializable{
 			respuesta.add(new DTOReporteCarrera(m.getCarrera().getNombre(), m.getFechaIngreso()));
 		}
 		
+		
 		for(DTOReporteCarrera c: respuesta) {
-			int inscriptos_no_graduados = em.createQuery(SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS)
+			@SuppressWarnings("unchecked")
+			List<Long> inscriptos_no_graduados= em.createQuery(SELECT_CARRERAS_ANIO_INSCRIPTOS_NO_GRADUADOS)
 					.setParameter("nombreCarrera", c.getNombreCarrera())
 					.setParameter("anio", c.getAnio())
-					.getFirstResult();
-			System.out.println("imprimo"+inscriptos_no_graduados);
-			c.setInscriptos_no_graduado(inscriptos_no_graduados);
+					.getResultList();
+			c.setInscriptos_no_graduado(inscriptos_no_graduados.get(0));
 			
-//			int inscriptos_graduados = em.createQuery(SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS)
-//					.setParameter("nombreCarrera", c.getNombreCarrera())
-//					.setParameter("anio", c.getAnio())
-//					.getFirstResult();
-//			c.setInscriptos_graduado(inscriptos_graduados);
+			@SuppressWarnings("unchecked")
+			List<Long> inscriptos_graduados= em.createQuery(SELECT_CARRERAS_ANIO_INSCRIPTOS_GRADUADOS)
+					.setParameter("nombreCarrera", c.getNombreCarrera())
+					.setParameter("anio", c.getAnio())
+					.getResultList();
+			c.setInscriptos_graduado(inscriptos_graduados.get(0));
+			
 		}
 		conexion.cerrarConexion();
 		return respuesta;
