@@ -109,7 +109,7 @@ public class Servicio {
 		//3
 		DTOServicioCarrera DTOC = new DTOServicioCarrera();
 		
-		for(DTOReporteCarrera d: DTOC.generarReporteDeCarreras2()) {
+		for(DTOReporteCarrera d: DTOC.generarReporteDeCarreras2() ) {
 			System.out.println(d);
 		}
 	}
